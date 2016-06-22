@@ -1,4 +1,4 @@
-# Microsoft Bing Speech API: iOS Speech-to-Text Sample
+# Microsoft Bing Speech API: iOS Speech-to-Text Client Library & Sample
 This repo contains iOS samples for using Speech-to-Text in the Microsoft Bing Speech API, part of [Cognitive Services](https://www.microsoft.com/cognitive-services).
 * [Learn about the Bing Speech API](https://www.microsoft.com/cognitive-services/en-us/speech-api)
 * [Read the documentation](https://www.microsoft.com/cognitive-services/en-us/speech-api/documentation/overview)
