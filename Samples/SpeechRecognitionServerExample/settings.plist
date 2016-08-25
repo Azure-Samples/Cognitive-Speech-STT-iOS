@@ -6,8 +6,6 @@
 	<string>yourLuisSubscriptionID</string>
 	<key>luisAppID</key>
 	<string>yourLuisAppID</string>
-	<key>secondaryKey</key>
-	<string>yourSecondaryKey</string>
 	<key>primaryKey</key>
 	<string>yourPrimaryKey</string>
 </dict>
