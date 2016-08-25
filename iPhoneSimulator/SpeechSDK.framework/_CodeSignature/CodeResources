@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/SpeechRecognitionService.h</key>
 		<data>
-		uuNDPdWPsN0CwgN5umFxUxIhQQE=
+		MAMIkTfeQZjfDT7l2cMTThkwNUo=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -16,9 +16,16 @@
 	<key>files2</key>
 	<dict>
 		<key>Headers/SpeechRecognitionService.h</key>
-		<data>
-		uuNDPdWPsN0CwgN5umFxUxIhQQE=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			MAMIkTfeQZjfDT7l2cMTThkwNUo=
+			</data>
+			<key>hash2</key>
+			<data>
+			BgrXE3ZRMFkgKNmIu3au+apGYUusc3KynNOz6e8Wymo=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>

@@ -403,7 +403,14 @@ Called when the microphone recording status has changed.
 */
 -(void)onMicrophoneStatus:(Boolean)recording;
 
+
 @optional
+
+/**
+Callback invoked when the speaker status changes
+@param speaking A flag indicating whether the speaker output is enabled
+*/
+-(void)onSpeakerStatus:(Boolean)speaking;
 
 /**
  Called when intent is received from the service
@@ -544,6 +551,12 @@ Begins playing back synthesized text as audio
 */
 -(void)synthesizeText:(NSString*)input
          withMimeType:(NSString*)mimeType;
+
+/**
+Plays an audio wave file
+@param fileName Wave File to play.
+*/
+-(void)playWaveFile:(NSString*)fileName;
 
 /**
 Sets the current geographic location to improve results.
@@ -748,7 +761,7 @@ When the microphone is turned on, audio data from the microphone is streamed to 
 +(NSString*)getAPIVersion;
 
 /**
-[Deprecated] Creates a DataRecognitionClient for speech recognition with acquired data, for example from a file or Bluetooth audio source.
+Creates a DataRecognitionClient for speech recognition with acquired data, for example from a file or Bluetooth audio source.
 <p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
 No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
 Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.</p>
@@ -771,34 +784,6 @@ You should periodically renew your key to prevent unauthorized use of your subsc
 +(DataRecognitionClient*)createDataClient:(SpeechRecognitionMode)speechRecognitionMode 
                              withLanguage:(NSString*)language
                                   withKey:(NSString*)primaryOrSecondaryKey
-                             withProtocol:(id<SpeechRecognitionProtocol>)delegate
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary.");
-
-/**
-Creates a DataRecognitionClient for speech recognition with acquired data, for example from a file or Bluetooth audio source.
-<p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
-No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
-Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.</p>
-<p>The recognition service returns only speech recognition results and does not perform intent detection.</p>
-@param speechRecognitionMode The speech recognition mode. <p>In Short Phrase mode, the client receives one final multiple N-best choice result.
-In Long-form Dictation mode, the client receives multiple final results, based on where the service thinks sentence pauses are.</p>
-@param language The language of the speech being recognized. The supported languages are:
-* en-us: American English
-* en-gb: British English
-* de-de: German
-* es-es: Spanish
-* fr-fr: French
-* it-it: Italian
-* zh-cn: Mandarin Chinese
-@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
-@param delegate The protocol used to perform the callbacks/events upon during speech recognition.
-@result The created DataRecognitionClient.
-*/
-+(DataRecognitionClient*)createDataClient:(SpeechRecognitionMode)speechRecognitionMode 
-                             withLanguage:(NSString*)language
-                           withPrimaryKey:(NSString*)primaryKey
-                         withSecondaryKey:(NSString*)secondaryKey
                              withProtocol:(id<SpeechRecognitionProtocol>)delegate;
 
 /**
@@ -817,6 +802,34 @@ In Long-form Dictation mode, the client receives multiple final results, based o
 * fr-fr: French
 * it-it: Italian
 * zh-cn: Mandarin Chinese
+@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
+@param secondaryKey Ignored.
+@param delegate The protocol used to perform the callbacks/events upon during speech recognition.
+@result The created DataRecognitionClient.
+*/
++(DataRecognitionClient*)createDataClient:(SpeechRecognitionMode)speechRecognitionMode 
+                             withLanguage:(NSString*)language
+                           withPrimaryKey:(NSString*)primaryKey
+                         withSecondaryKey:(NSString*)secondaryKey
+                             withProtocol:(id<SpeechRecognitionProtocol>)delegate
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+
+/**
+Creates a DataRecognitionClient for speech recognition with acquired data, for example from a file or Bluetooth audio source.
+<p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
+No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
+Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.</p>
+<p>The recognition service returns only speech recognition results and does not perform intent detection.</p>
+@param speechRecognitionMode The speech recognition mode. <p>In Short Phrase mode, the client receives one final multiple N-best choice result.
+In Long-form Dictation mode, the client receives multiple final results, based on where the service thinks sentence pauses are.</p>
+@param language The language of the speech being recognized. The supported languages are:
+* en-us: American English
+* en-gb: British English
+* de-de: German
+* es-es: Spanish
+* fr-fr: French
+* it-it: Italian
+* zh-cn: Mandarin Chinese
 @param primaryOrSecondaryKey The primary or the secondary key.
 You should periodically renew your key to prevent unauthorized use of your subscription. The recommended approach is to acquire two keys, a primary and a secondary and to rotate key usage between these two keys. While one key is disabled, the other key will still work, allowing your application to remain active while the disabled key is replaced.
 @param delegate The protocol used to perform the callbacks/events upon during speech recognition.
@@ -827,11 +840,10 @@ You should periodically renew your key to prevent unauthorized use of your subsc
                              withLanguage:(NSString*)language
                                   withKey:(NSString*)primaryOrSecondaryKey
                              withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                  withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
+                                  withUrl:(NSString*)url;
 
 /**
-Creates a DataRecognitionClient for speech recognition with acquired data, for example from a file or Bluetooth audio source.
+[Deprecated] Creates a DataRecognitionClient for speech recognition with acquired data, for example from a file or Bluetooth audio source.
 <p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
 No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
 Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.</p>
@@ -848,7 +860,7 @@ In Long-form Dictation mode, the client receives multiple final results, based o
 * it-it: Italian
 * zh-cn: Mandarin Chinese
 @param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
+@param secondaryKey Ignored.
 @param delegate The protocol used to perform the callbacks/events upon during speech recognition.
 @param url The endpoint with a Acoustic Model that you specially created with the Custom Recognition Intelligent Service (see https://cris.ai/).
 @result The created DataRecognitionClient.
@@ -858,10 +870,11 @@ In Long-form Dictation mode, the client receives multiple final results, based o
                            withPrimaryKey:(NSString*)primaryKey
                          withSecondaryKey:(NSString*)secondaryKey
                              withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                  withUrl:(NSString*)url;
+                                  withUrl:(NSString*)url
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
 
 /**
-[Deprecated] Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
+Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
 <p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
 No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
 Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz. 
@@ -884,36 +897,6 @@ You should periodically renew your key to prevent unauthorized use of your subsc
 */
 +(DataRecognitionClientWithIntent*)createDataClientWithIntent:(NSString*)language
                                                       withKey:(NSString*)primaryOrSecondaryKey
-                                                withLUISAppID:(NSString*)luisAppID 
-                                               withLUISSecret:(NSString*)luisSubscriptionID
-                                                 withProtocol:(id<SpeechRecognitionProtocol>)delegate
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
-
-/**
-Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
-<p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
-No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
-Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz. 
-<p>Returns speech recognition results and structured intent results. Intent results are returned in structured JSON form (see https://LUIS.ai)</p>
-
-@param language The language of the speech being recognized. The supported languages are:
-* en-us: American English
-* en-gb: British English
-* de-de: German
-* es-es: Spanish
-* fr-fr: French
-* it-it: Italian
-* zh-cn: Mandarin Chinese
-@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
-@param luisAppID Once you have configured the LUIS service to create and publish an intent model (see https://LUIS.ai) you will be given an Application ID GUID. Use that GUID here.
-@param luisSubscriptionID Once you create a LUIS account (see https://LUIS.ai) you will be given an Subscription ID. Use that secret here.
-@param delegate The protocol used to perform the callbacks/events during speech recognition and intent detection.
-@result The created DataRecognitionClientWithIntent.
-*/
-+(DataRecognitionClientWithIntent*)createDataClientWithIntent:(NSString*)language
-                                               withPrimaryKey:(NSString*)primaryKey
-                                             withSecondaryKey:(NSString*)secondaryKey
                                                 withLUISAppID:(NSString*)luisAppID 
                                                withLUISSecret:(NSString*)luisSubscriptionID
                                                  withProtocol:(id<SpeechRecognitionProtocol>)delegate;
@@ -924,6 +907,36 @@ Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.
 No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
 Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz. 
 <p>Returns speech recognition results and structured intent results. Intent results are returned in structured JSON form (see https://LUIS.ai)</p>
+
+@param language The language of the speech being recognized. The supported languages are:
+* en-us: American English
+* en-gb: British English
+* de-de: German
+* es-es: Spanish
+* fr-fr: French
+* it-it: Italian
+* zh-cn: Mandarin Chinese
+@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
+@param secondaryKey Ignored.
+@param luisAppID Once you have configured the LUIS service to create and publish an intent model (see https://LUIS.ai) you will be given an Application ID GUID. Use that GUID here.
+@param luisSubscriptionID Once you create a LUIS account (see https://LUIS.ai) you will be given an Subscription ID. Use that secret here.
+@param delegate The protocol used to perform the callbacks/events during speech recognition and intent detection.
+@result The created DataRecognitionClientWithIntent.
+*/
++(DataRecognitionClientWithIntent*)createDataClientWithIntent:(NSString*)language
+                                               withPrimaryKey:(NSString*)primaryKey
+                                             withSecondaryKey:(NSString*)secondaryKey
+                                                withLUISAppID:(NSString*)luisAppID 
+                                               withLUISSecret:(NSString*)luisSubscriptionID
+                                                 withProtocol:(id<SpeechRecognitionProtocol>)delegate
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+
+/**
+Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
+<p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
+No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
+Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz. 
+<p>Returns speech recognition results and structured intent results. Intent results are returned in structured JSON form (see https://LUIS.ai)</p>
 @param language The language of the speech being recognized. The supported languages are:
 * en-us: American English
 * en-gb: British English
@@ -945,11 +958,10 @@ You should periodically renew your key to prevent unauthorized use of your subsc
                                                 withLUISAppID:(NSString*)luisAppID 
                                                withLUISSecret:(NSString*)luisSubscriptionID
                                                  withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                                      withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
+                                                      withUrl:(NSString*)url;
 
 /**
-Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
+[Deprecated] Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
 <p>Data is broken up into buffers and each buffer is sent to the speech recognition service.
 No modification is done to the buffers; if silence detection is required, it must be performed in an external pre-processing pass over the data.
 Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz. 
@@ -963,7 +975,7 @@ Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.
 * it-it: Italian
 * zh-cn: Mandarin Chinese
 @param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
+@param secondaryKey Ignored.
 @param luisAppID Once you have configured the LUIS service to create and publish an intent model (see https://LUIS.ai) you will be given an Application ID GUID. Use that GUID here.
 @param luisSubscriptionID Once you create a LUIS account (see https://LUIS.ai) you will be given an Subscription ID. Use that secret here.
 @param delegate The protocol used to perform the callbacks/events during speech recognition and intent detection.
@@ -976,10 +988,11 @@ Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.
                                                 withLUISAppID:(NSString*)luisAppID 
                                                withLUISSecret:(NSString*)luisSubscriptionID
                                                  withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                                      withUrl:(NSString*)url;
+                                                      withUrl:(NSString*)url
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
 
 /**
-[Deprecated] Creates a MicrophoneRecognitionClient that uses the microphone as the input source.
+Creates a MicrophoneRecognitionClient that uses the microphone as the input source.
 <p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is
 turned on, data from the microphone is sent to the speech recognition service.
 A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service.
@@ -1002,34 +1015,6 @@ You should periodically renew your key to prevent unauthorized use of your subsc
 +(MicrophoneRecognitionClient*)createMicrophoneClient:(SpeechRecognitionMode)speechRecognitionMode
                                          withLanguage:(NSString*)language
                                               withKey:(NSString*)primaryOrSecondaryKey
-                                         withProtocol:(id<SpeechRecognitionProtocol>)delegate
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
-
-/**
-Creates a MicrophoneRecognitionClient that uses the microphone as the input source.
-<p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is
-turned on, data from the microphone is sent to the speech recognition service.
-A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service.
-The recognition service returns only speech recognition results and does not perform intent detection.
-To terminate speech recognition and stop sending data to the service, call endMicAndRecognition.</p>
-@param speechRecognitionMode The speech recognition mode. <p>In Short Phrase mode, the client receives one final multiple N-best choice result. In Long-form Dictation mode, the client receives multiple final results, based on where the server thinks sentence pauses are.</p>
-@param language The language of the speech being recognized. The supported languages are:
-* en-us: American English
-* en-gb: British English
-* de-de: German
-* es-es: Spanish
-* fr-fr: French
-* it-it: Italian
-* zh-cn: Mandarin Chinese
-@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
-@param delegate The protocol used to perform the callbacks/events upon during speech recognition.
-@result The created MicrophoneRecognitionClient.
-*/
-+(MicrophoneRecognitionClient*)createMicrophoneClient:(SpeechRecognitionMode)speechRecognitionMode
-                                         withLanguage:(NSString*)language
-                                       withPrimaryKey:(NSString*)primaryKey
-                                     withSecondaryKey:(NSString*)secondaryKey
                                          withProtocol:(id<SpeechRecognitionProtocol>)delegate;
 
 /**
@@ -1048,18 +1033,17 @@ To terminate speech recognition and stop sending data to the service, call endMi
 * fr-fr: French
 * it-it: Italian
 * zh-cn: Mandarin Chinese
-@param primaryOrSecondaryKey The primary or the secondary key.
-You should periodically renew your key to prevent unauthorized use of your subscription. The recommended approach is to acquire two keys, a primary and a secondary and to rotate key usage between these two keys. While one key is disabled, the other key will still work, allowing your application to remain active while the disabled key is replaced.
+@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
+@param secondaryKey Ignored.
 @param delegate The protocol used to perform the callbacks/events upon during speech recognition.
-@param url The endpoint with a Acoustic Model that you specially created with the Custom Recognition Intelligent Service (see https://cris.ai/).
-@result The created MicrophoneRecognitionClient
+@result The created MicrophoneRecognitionClient.
 */
 +(MicrophoneRecognitionClient*)createMicrophoneClient:(SpeechRecognitionMode)speechRecognitionMode
                                          withLanguage:(NSString*)language
-                                              withKey:(NSString*)primaryOrSecondaryKey
+                                       withPrimaryKey:(NSString*)primaryKey
+                                     withSecondaryKey:(NSString*)secondaryKey
                                          withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                              withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
 
 /**
 Creates a MicrophoneRecognitionClient that uses the microphone as the input source.
@@ -1077,8 +1061,36 @@ To terminate speech recognition and stop sending data to the service, call endMi
 * fr-fr: French
 * it-it: Italian
 * zh-cn: Mandarin Chinese
+@param primaryOrSecondaryKey The primary or the secondary key.
+You should periodically renew your key to prevent unauthorized use of your subscription. The recommended approach is to acquire two keys, a primary and a secondary and to rotate key usage between these two keys. While one key is disabled, the other key will still work, allowing your application to remain active while the disabled key is replaced.
+@param delegate The protocol used to perform the callbacks/events upon during speech recognition.
+@param url The endpoint with a Acoustic Model that you specially created with the Custom Recognition Intelligent Service (see https://cris.ai/).
+@result The created MicrophoneRecognitionClient
+*/
++(MicrophoneRecognitionClient*)createMicrophoneClient:(SpeechRecognitionMode)speechRecognitionMode
+                                         withLanguage:(NSString*)language
+                                              withKey:(NSString*)primaryOrSecondaryKey
+                                         withProtocol:(id<SpeechRecognitionProtocol>)delegate
+                                              withUrl:(NSString*)url;
+
+/**
+[Deprecated] Creates a MicrophoneRecognitionClient that uses the microphone as the input source.
+<p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is
+turned on, data from the microphone is sent to the speech recognition service.
+A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service.
+The recognition service returns only speech recognition results and does not perform intent detection.
+To terminate speech recognition and stop sending data to the service, call endMicAndRecognition.</p>
+@param speechRecognitionMode The speech recognition mode. <p>In Short Phrase mode, the client receives one final multiple N-best choice result. In Long-form Dictation mode, the client receives multiple final results, based on where the server thinks sentence pauses are.</p>
+@param language The language of the speech being recognized. The supported languages are:
+* en-us: American English
+* en-gb: British English
+* de-de: German
+* es-es: Spanish
+* fr-fr: French
+* it-it: Italian
+* zh-cn: Mandarin Chinese
 @param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
+@param secondaryKey Ignored.
 @param delegate The protocol used to perform the callbacks/events upon during speech recognition.
 @param url The endpoint with a Acoustic Model that you specially created with the Custom Recognition Intelligent Service (see https://cris.ai/).
 @result The created MicrophoneRecognitionClient
@@ -1088,10 +1100,11 @@ To terminate speech recognition and stop sending data to the service, call endMi
                                        withPrimaryKey:(NSString*)primaryKey
                                      withSecondaryKey:(NSString*)secondaryKey
                                          withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                              withUrl:(NSString*)url;
+                                              withUrl:(NSString*)url
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
 
 /**
-[Deprecated] Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
+Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
 <p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is turned on, data from the microphone is sent to the service.
 A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service. The service returns speech recognition results and structured intent results.
 To terminate speech recognition and stop sending data to the service, call endMicAndRecognition.</p>
@@ -1114,36 +1127,6 @@ You should periodically renew your key to prevent unauthorized use of your subsc
 */
 +(MicrophoneRecognitionClientWithIntent*)createMicrophoneClientWithIntent:(NSString*)language
                                                                   withKey:(NSString*)primaryOrSecondaryKey
-                                                            withLUISAppID:(NSString*)luisAppID
-                                                           withLUISSecret:(NSString*)luisSubscriptionID
-                                                             withProtocol:(id<SpeechRecognitionProtocol>)delegate
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
-
-/**
-Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
-<p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is turned on, data from the microphone is sent to the service.
-A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service. The service returns speech recognition results and structured intent results.
-To terminate speech recognition and stop sending data to the service, call endMicAndRecognition.</p>
-<p>The service returns structured intent results in JSON form (see https://LUIS.ai).</p>
-
-@param language The language of the speech being recognized. The supported languages are:
-* en-us: American English
-* en-gb: British English
-* de-de: German
-* es-es: Spanish
-* fr-fr: French
-* it-it: Italian
-* zh-cn: Mandarin Chinese
-@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
-@param luisAppID Once you have configured the LUIS service to create and publish an intent model (see https://LUIS.ai) you will be given an Application ID GUID. Use that GUID here.
-@param luisSubscriptionID Once you create a LUIS account (see https://LUIS.ai) you will be given an Subscription ID. Use that secret here.
-@param delegate The protocol used to perform the callbacks/events during speech recognition and intent detection.
-@result The created MicrophoneRecognitionClientWithIntent.
-*/
-+(MicrophoneRecognitionClientWithIntent*)createMicrophoneClientWithIntent:(NSString*)language
-                                                           withPrimaryKey:(NSString*)primaryKey
-                                                         withSecondaryKey:(NSString*)secondaryKey
                                                             withLUISAppID:(NSString*)luisAppID
                                                            withLUISSecret:(NSString*)luisSubscriptionID
                                                              withProtocol:(id<SpeechRecognitionProtocol>)delegate;
@@ -1156,6 +1139,36 @@ To terminate speech recognition and stop sending data to the service, call endMi
 <p>The service returns structured intent results in JSON form (see https://LUIS.ai).</p>
 
 @param language The language of the speech being recognized. The supported languages are:
+* en-us: American English
+* en-gb: British English
+* de-de: German
+* es-es: Spanish
+* fr-fr: French
+* it-it: Italian
+* zh-cn: Mandarin Chinese
+@param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
+@param secondaryKey Ignored.
+@param luisAppID Once you have configured the LUIS service to create and publish an intent model (see https://LUIS.ai) you will be given an Application ID GUID. Use that GUID here.
+@param luisSubscriptionID Once you create a LUIS account (see https://LUIS.ai) you will be given an Subscription ID. Use that secret here.
+@param delegate The protocol used to perform the callbacks/events during speech recognition and intent detection.
+@result The created MicrophoneRecognitionClientWithIntent.
+*/
++(MicrophoneRecognitionClientWithIntent*)createMicrophoneClientWithIntent:(NSString*)language
+                                                           withPrimaryKey:(NSString*)primaryKey
+                                                         withSecondaryKey:(NSString*)secondaryKey
+                                                            withLUISAppID:(NSString*)luisAppID
+                                                           withLUISSecret:(NSString*)luisSubscriptionID
+                                                             withProtocol:(id<SpeechRecognitionProtocol>)delegate
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+
+/**
+Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
+<p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is turned on, data from the microphone is sent to the service.
+A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service. The service returns speech recognition results and structured intent results.
+To terminate speech recognition and stop sending data to the service, call endMicAndRecognition.</p>
+<p>The service returns structured intent results in JSON form (see https://LUIS.ai).</p>
+
+@param language The language of the speech being recognized. The supported languages are:
 * en-us American English
 * en-gb: British English
 * de-de: German
@@ -1176,11 +1189,10 @@ You should periodically renew your key to prevent unauthorized use of your subsc
                                                             withLUISAppID:(NSString*)luisAppID
                                                            withLUISSecret:(NSString*)luisSubscriptionID
                                                              withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                                                  withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using both primary and secondary keys.");
+                                                                  withUrl:(NSString*)url;
 
 /**
-Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
+[Deprecated] Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
 <p>To initiate speech recognition, call the startMicAndRecognition method of this client. Once the microphone is turned on, data from the microphone is sent to the service.
 A built-in Silence Detector is applied to the microphone data before it is sent to the recognition service. The service returns speech recognition results and structured intent results.
 To terminate speech recognition and stop sending data to the service, call endMicAndRecognition.</p>
@@ -1195,7 +1207,7 @@ To terminate speech recognition and stop sending data to the service, call endMi
 * it-it: Italian
 * zh-cn: Mandarin Chinese
 @param primaryKey The primary key.  It's a best practice that the application rotate keys periodically. Between rotations, you would disable the primary key, making the secondary key the default, giving you time to swap out the primary.
-@param secondaryKey The secondary key.  Intended to be used when the primary key has been disabled.
+@param secondaryKey Ignored.
 @param luisAppID Once you have configured the LUIS service to create and publish an intent model (see https://LUIS.ai) you will be given an Application ID GUID. Use that GUID here.
 @param luisSubscriptionID Once you create a LUIS account (see https://LUIS.ai) you will be given an Subscription ID. Use that secret here.
 @param delegate The protocol used to perform the callbacks/events during speech recognition and intent detection.
@@ -1208,6 +1220,7 @@ To terminate speech recognition and stop sending data to the service, call endMi
                                                             withLUISAppID:(NSString*)luisAppID
                                                            withLUISSecret:(NSString*)luisSubscriptionID
                                                              withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                                                  withUrl:(NSString*)url;
+                                                                  withUrl:(NSString*)url
+DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
 
 @end

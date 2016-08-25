@@ -2,10 +2,10 @@
  * Copyright (c) Microsoft. All rights reserved.
  * Licensed under the MIT license.
  *
- * Microsoft Cognitive Services (formerly Project Oxford): https://www.microsoft.com/cognitive-services
+ * Project Oxford: http://ProjectOxford.ai
  *
- * Microsoft Cognitive Services (formerly Project Oxford) GitHub:
- * https://github.com/Microsoft/Cognitive-Speech-STT-iOS
+ * ProjectOxford SDK Github:
+ * https://github.com/Microsoft/ProjectOxford-ClientSDK
  *
  * Copyright (c) Microsoft Corporation
  * All rights reserved.
@@ -215,14 +215,12 @@ NSString* ConvertSpeechErrorToString(int errorCode);
 
                 micClient = [SpeechRecognitionServiceFactory createMicrophoneClient:(self.mode)
                                                                        withLanguage:(self.defaultLocale)
-                                                                     withPrimaryKey:(self.subscriptionKey)
-                                                                   withSecondaryKey:(self.subscriptionKey)
+                                                                            withKey:(self.subscriptionKey)
                                                                        withProtocol:(self)];
             }
             else {
                 micClient = [SpeechRecognitionServiceFactory createMicrophoneClientWithIntent:(self.defaultLocale)
-                                                                               withPrimaryKey:(self.subscriptionKey)
-                                                                             withSecondaryKey:(self.subscriptionKey)
+                                                                                      withKey:(self.subscriptionKey)
                                                                                 withLUISAppID:(self.luisAppId)
                                                                                withLUISSecret:(self.luisSubscriptionID)
                                                                                  withProtocol:(self)];
@@ -239,14 +237,12 @@ NSString* ConvertSpeechErrorToString(int errorCode);
             if (!self.wantIntent) { 
                 dataClient = [SpeechRecognitionServiceFactory createDataClient:(self.mode)
                                                                   withLanguage:(self.defaultLocale)
-                                                                withPrimaryKey:(self.subscriptionKey)
-                                                              withSecondaryKey:(self.subscriptionKey)
+                                                                       withKey:(self.subscriptionKey)
                                                                   withProtocol:(self)];
             }
             else {
                 dataClient = [SpeechRecognitionServiceFactory createDataClientWithIntent:(self.defaultLocale)
-                                                                          withPrimaryKey:(self.subscriptionKey)
-                                                                        withSecondaryKey:(self.subscriptionKey)
+                                                                                 withKey:(self.subscriptionKey)
                                                                            withLUISAppID:(self.luisAppId)
                                                                           withLUISSecret:(self.luisSubscriptionID)
                                                                             withProtocol:(self)];
@@ -410,6 +406,18 @@ NSString* ConvertSpeechErrorToString(int errorCode);
         [self WriteLine:[[NSString alloc] initWithFormat:(@"********* Microphone status: %d *********"), recording]];
     });
 }
+
+/**
+ * Callback invoked when the speaker status changes
+ * @param speaking A flag indicating whether the speaker output is enabled
+*/
+-(void)onSpeakerStatus:(Boolean)speaking
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+        [self WriteLine:[[NSString alloc] initWithFormat:(@"********* Speaker status: %d *********"), speaking]];
+    });
+}
+
 
 /**
  * Writes the line.
