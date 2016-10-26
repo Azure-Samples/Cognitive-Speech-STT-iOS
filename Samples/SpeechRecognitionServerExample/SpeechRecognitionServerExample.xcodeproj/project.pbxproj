@@ -82,6 +82,7 @@
 				744057E51AB005E900D4462E /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		744057E51AB005E900D4462E /* Products */ = {
 			isa = PBXGroup;
