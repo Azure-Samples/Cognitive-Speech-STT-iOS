@@ -29,6 +29,17 @@ This sample demonstrates the following features using a wav file or external mic
 ### Build the sample
  1. First, you must obtain a Speech API subscription key by [following the instructions on our website (<https://www.microsoft.com/cognitive-services/en-us/sign-up>).
 
+	- Get the “Key 1” entry for “Bing Speech” from the [Subscriptions](https://www.microsoft.com/cognitive-services/en-US/subscriptions). This will be your `primaryKey`.
+
+	- Additionally, sign into [Language Understanding Intelligent Service (LUIS)](https://www.luis.ai) using the account you just created.
+
+		- Create a new LUIS app
+			- Suggested name: SpeechRecognitionServerExample 
+
+		- Get the `App Id` from “App Settings”. This will be your `luisAppID` below.
+
+		- Get your LUIS subscription ID. This is the  “Programmatic API Key” listed in your account’s “Settings” when you are logged in to LUIS.
+
  2. Start Xcode and choose the menu `File`, and `Open...` the workspace file `Speech > SpeechToText > iOS > SpeechSDK.xcworkspace`.
 
  3. In Xcode, select menu `Product > Build` to build the sample,
