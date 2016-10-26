@@ -27,7 +27,7 @@ This sample demonstrates the following features using a wav file or external mic
 
 
 ### Build the sample
- 1. First, you must obtain a Speech API subscription key by [following the instructions on our website(<https://www.microsoft.com/cognitive-services/en-us/sign-up>).
+ 1. First, you must obtain a Speech API subscription key by [following the instructions on our website (<https://www.microsoft.com/cognitive-services/en-us/sign-up>).
 
  2. Start Xcode and choose the menu `File`, and `Open...` the workspace file `Speech > SpeechToText > iOS > SpeechSDK.xcworkspace`.
 
