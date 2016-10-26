@@ -42,6 +42,11 @@ This sample demonstrates the following features using a wav file or external mic
 
  2. Start Xcode and choose the menu `File`, and `Open...` the workspace file `Speech > SpeechToText > iOS > SpeechSDK.xcworkspace`.
 
+	- Edit the “settings.plist” in Xcode with the information obtained above.
+
+	- You can prevent this from causing your git repo to be dirty by [locally setting changes to be ignored](http://stackoverflow.com/a/4633776) from within the repo’s root:
+		> git update-index --assume-unchanged "Samples/SpeechRecognitionServerExample/settings.plist"
+
  3. In Xcode, select menu `Product > Build` to build the sample,
     and `Run` to launch this sample app.
 
