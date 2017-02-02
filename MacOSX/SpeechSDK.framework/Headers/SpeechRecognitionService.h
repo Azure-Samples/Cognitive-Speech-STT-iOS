@@ -78,6 +78,11 @@ The audio logging level to be used by the service (refer to the SpeechLoggingLev
 */
 @property(nonatomic, strong) NSNumber* LoggingLevel;
 
+/**
+ * Gets or sets the authentication service endpoint.
+ */
+@property(nonatomic, copy) NSString* AuthenticationUri;
+
 @end
 
 
@@ -557,6 +562,11 @@ Plays an audio wave file
 @param fileName Wave File to play.
 */
 -(void)playWaveFile:(NSString*)fileName;
+
+/**
+ * Gets or sets the authentication service endpoint.
+ */
+@property(nonatomic, copy) NSString* AuthenticationUri;
 
 /**
 Sets the current geographic location to improve results.

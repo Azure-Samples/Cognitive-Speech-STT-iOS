@@ -38,6 +38,7 @@
 @property (nonatomic, readonly)  NSString*               subscriptionKey;
 @property (nonatomic, readonly)  NSString*               luisAppId;
 @property (nonatomic, readonly)  NSString*               luisSubscriptionID;
+@property (nonatomic, readonly)  NSString*               authenticationUri;
 @property (nonatomic, readonly)  bool                    useMicrophone;
 @property (nonatomic, readonly)  bool                    wantIntent;
 @property (nonatomic, readonly)  SpeechRecognitionMode   mode;
@@ -87,6 +88,14 @@ NSString* ConvertSpeechErrorToString(int errorCode);
  */
 -(NSString*)luisSubscriptionID {
     return [self.settings objectForKey:(@"luisSubscriptionID")];
+}
+
+/**
+ * Gets the Cognitive Service Authentication Uri.
+ * @return The Cognitive Service Authentication Uri.  Empty if the global default is to be used.
+ */
+-(NSString*)authenticationUri {
+    return [self.settings objectForKey:(@"authenticationUri")];
 }
 
 /**
@@ -225,6 +234,8 @@ NSString* ConvertSpeechErrorToString(int errorCode);
                                                                                withLUISSecret:(self.luisSubscriptionID)
                                                                                  withProtocol:(self)];
             }
+
+            micClient.AuthenticationUri = self.authenticationUri;
         }
 
         OSStatus status = [micClient startMicAndRecognition];
@@ -247,6 +258,8 @@ NSString* ConvertSpeechErrorToString(int errorCode);
                                                                           withLUISSecret:(self.luisSubscriptionID)
                                                                             withProtocol:(self)];
             }
+
+            dataClient.AuthenticationUri = self.authenticationUri;
         }
 
         [self sendAudioHelper:self.mode == SpeechRecognitionMode_ShortPhrase ? self.shortWaveFile : self.longWaveFile];
