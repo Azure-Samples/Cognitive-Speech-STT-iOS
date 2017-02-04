@@ -880,8 +880,7 @@ In Long-form Dictation mode, the client receives multiple final results, based o
                            withPrimaryKey:(NSString*)primaryKey
                          withSecondaryKey:(NSString*)secondaryKey
                              withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                  withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+                                  withUrl:(NSString*)url;
 
 /**
 Creates a DataRecognitionClientWithIntent for speech recognition *and* intent detection with previously acquired data, for example from a file or Bluetooth audio source.
@@ -998,8 +997,7 @@ Audio data must be PCM, mono, 16-bit sample, with sample rate of 16000 Hz.
                                                 withLUISAppID:(NSString*)luisAppID 
                                                withLUISSecret:(NSString*)luisSubscriptionID
                                                  withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                                      withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+                                                      withUrl:(NSString*)url;
 
 /**
 Creates a MicrophoneRecognitionClient that uses the microphone as the input source.
@@ -1110,8 +1108,7 @@ To terminate speech recognition and stop sending data to the service, call endMi
                                        withPrimaryKey:(NSString*)primaryKey
                                      withSecondaryKey:(NSString*)secondaryKey
                                          withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                              withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+                                              withUrl:(NSString*)url;
 
 /**
 Creates a MicrophoneRecognitionClientWithIntent that uses the microphone as the input source.
@@ -1230,7 +1227,6 @@ To terminate speech recognition and stop sending data to the service, call endMi
                                                             withLUISAppID:(NSString*)luisAppID
                                                            withLUISSecret:(NSString*)luisSubscriptionID
                                                              withProtocol:(id<SpeechRecognitionProtocol>)delegate
-                                                                  withUrl:(NSString*)url
-DEPRECATED_MSG_ATTRIBUTE("Use alternative method using just the primary key.");
+                                                                  withUrl:(NSString*)url;
 
 @end
