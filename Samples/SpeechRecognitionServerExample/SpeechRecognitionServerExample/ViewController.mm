@@ -191,7 +191,7 @@ NSString* ConvertSpeechErrorToString(int errorCode);
                                                         dataLongRadioButton, 
                                                         dataShortIntentRadioButton, 
                                                         nil];
-    [self showMenu:TRUE];
+    [self showMenu:YES];
     textOnScreen = [NSMutableString stringWithCapacity: 1000];
 }
 
@@ -213,7 +213,7 @@ NSString* ConvertSpeechErrorToString(int errorCode);
     [self setText: textOnScreen];
     [[self startButton] setEnabled:NO];
     
-    [self showMenu:FALSE];
+    [self showMenu:NO];
 
     [self logRecognitionStart];
 
@@ -450,7 +450,7 @@ NSString* ConvertSpeechErrorToString(int errorCode);
     NSUInteger index = [self.buttonGroup indexOfObject:sender];
     for(NSUInteger i = 0; i < self.buttonGroup.count; ++i) {
         UNIVERSAL_BUTTON* buttonSel = (UNIVERSAL_BUTTON*)self.buttonGroup[i];
-        UNIVERSAL_BUTTON_SETCHECKED(buttonSel, (index == i) ? TRUE : FALSE);
+        UNIVERSAL_BUTTON_SETCHECKED(buttonSel, (index == i) ? YES : NO);
     }
 
     if (micClient != nil) {
@@ -463,7 +463,7 @@ NSString* ConvertSpeechErrorToString(int errorCode);
         dataClient = nil;
     }
 
-    [self showMenu:FALSE];
+    [self showMenu:NO];
 }
 
 /**
@@ -521,7 +521,7 @@ NSString* ConvertSpeechRecoConfidenceEnumToString(Confidence confidence) {
  * @param sender The sending caller.
  */
 -(IBAction)ChangeModeButton_Click:(id)sender {
-    [self showMenu:TRUE];
+    [self showMenu:YES];
 }
 
 /**

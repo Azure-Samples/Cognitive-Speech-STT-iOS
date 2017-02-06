@@ -7,7 +7,7 @@ This repo contains iOS samples for using Speech-to-Text in the Microsoft Bing Sp
 ## The Client Library
 The client library is a client library for Speech-to-Text in the Microsoft Bing Speech API
 
-To add the client library dependency from an existing XCode Project:
+To add the client library dependency from an existing Xcode Project:
  1. Select your target application, and open the menu `File` then `Add Files to ...`
 
  2. Navigate to `Speech > SpeechToText > iOS > iPhoneOS`, select `SpeechSDK.framework`, and click `Add`.
@@ -27,16 +27,32 @@ This sample demonstrates the following features using a wav file or external mic
 
 
 ### Build the sample
- 1. First, you must obtain a Speech API subscription key by [following the instructions on our website(<https://www.microsoft.com/cognitive-services/en-us/sign-up>).
+ 1. First, you must obtain a Speech API subscription key by [following the instructions on our website (<https://www.microsoft.com/cognitive-services/en-us/sign-up>).
 
- 2. Start XCode and choose the menu `File`, and `Open...` the workspace file `Speech > SpeechToText > iOS > SpeechSDK.xcworkspace`.
+	- Get the “Key 1” entry for “Bing Speech” from the [Subscriptions](https://www.microsoft.com/cognitive-services/en-US/subscriptions). This will be your `primaryKey`.
 
- 3. In XCode, select menu `Product > Build` to build the sample,
+	- Additionally, sign into [Language Understanding Intelligent Service (LUIS)](https://www.luis.ai) using the account you just created.
+
+		- Create a new LUIS app
+			- Suggested name: SpeechRecognitionServerExample 
+
+		- Get the `App Id` from “App Settings”. This will be your `luisAppID` below.
+
+		- Get your LUIS subscription ID. This is the  “Programmatic API Key” listed in your account’s “Settings” when you are logged in to LUIS.
+
+ 2. Start Xcode and choose the menu `File`, and `Open...` the workspace file `Speech > SpeechToText > iOS > SpeechSDK.xcworkspace`.
+
+	- Edit the “settings.plist” in Xcode with the information obtained above.
+
+	- You can prevent this from causing your git repo to be dirty by [locally setting changes to be ignored](http://stackoverflow.com/a/4633776) from within the repo’s root:
+		> git update-index --assume-unchanged "Samples/SpeechRecognitionServerExample/settings.plist"
+
+ 3. In Xcode, select menu `Product > Build` to build the sample,
     and `Run` to launch this sample app.
 
 
 ### Running the sample
-In XCode, select the menu `Product`, and `Run` to launch this sample app.
+In Xcode, select the menu `Product`, and `Run` to launch this sample app.
 
  1. In the application, press the button `Change Mode` to select what type of Speech would like to use.
 
