@@ -569,12 +569,23 @@ Plays an audio wave file
 @property(nonatomic, copy) NSString* AuthenticationUri;
 
 /**
+Sets LiveIdToken - new value should override value set in Preferences.
+@param token The new LiveIdToken to use.
+*/
+-(void)setLiveIdToken:(NSString*)token;
+
+/**
 Sets the current geographic location to improve results.
 @param latitude The geographic latitude coordinate.
 @param longitude The geographic longitude coordinate.
 */
 -(void)setLocationLatitude:(double)latitude
              withLongitude:(double)longitude;
+
+/**
+Resets conversation using current preferences
+*/
+-(void)reset;
 
 @end
 
