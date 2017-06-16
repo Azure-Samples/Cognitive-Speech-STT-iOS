@@ -9,7 +9,7 @@ The client library is a client library for Speech-to-Text in the Microsoft Bing 
 
 To add the client library dependency from an existing XCode Project:
 1. Select your target application, and open the menu `File` then `Add Files to ...`
-2. Navigate to `Speech > SpeechToText > iOS > iPhoneOS`, select `SpeechSDK.framework`, and click `Add`.
+2. Navigate to `iPhoneOS`, select `SpeechSDK.framework`, and click `Add`.
 3. Go to your project settings, by single clicking your project, and navigate to the `General` tab.  You'll notice that SpeechSDK.framework exists under the `Linked Frameworks and Libraries` section.
 4. In the General tab, under the `Embedded Binaries` section, click the (+) button.   In the dialog, select `SpeechSDK.framework` and click the `Add` button.
 5. If you wish to run on the iOS Simulator or MacOSX, repeat steps 2-4 but choose either `iPhoneSimulator` or `MacOSX` instead.

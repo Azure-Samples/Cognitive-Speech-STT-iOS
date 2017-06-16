@@ -8,5 +8,7 @@
 	<string>yourLuisAppID</string>
 	<key>primaryKey</key>
 	<string>yourPrimaryKey</string>
+	<key>authenticationUri</key>
+	<string></string>
 </dict>
 </plist>
