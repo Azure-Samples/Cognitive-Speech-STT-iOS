@@ -22,15 +22,15 @@ This sample demonstrates the following features using a wav file or external mic
 
 ### Build the sample
 1. First, you must obtain a Speech API subscription key by following the instructions on our website: <https://www.microsoft.com/cognitive-services/en-us/sign-up>
-2. Start XCode and choose the menu `File`, and `Open...` the workspace file `Speech > SpeechToText > iOS > SpeechSDK.xcworkspace`.
-3. Use one of your subscription keys as the primaryKey in `Samples\_SpeechRecognitionServerExample\_settings.plist`.
+2. Start XCode and choose the menu `File`, and `Open...` the workspace file `Cognitive-Speech-STT-iOS > SpeechSDK.xcworkspace`.
+3. Use one of your subscription keys as the primaryKey in `Samples/SpeechRecognitionServerExample/settings.plist`.
 4. In XCode, select menu `Product > Build` to build the sample and `Run` to launch the sample app.
 
 ### Running the sample
 In XCode, select the menu `Product`, and `Run` to launch this sample app.
 
 1. In the application, press the button `Change Mode` to select what type of Speech would like to use.
-2. For modes where you would like both Speech recognition and Intent to work, you need to sign up [Language Understanding Intelligent Service (LUIS)](<https://www.microsoft.com/cognitive-services/en-us/sign-up>) and set the key values in luisAppID and luisSubscriptionID from `Samples\_SpeechRecognitionServerExample\_settings.plist`.
+2. For modes where you would like both Speech recognition and Intent to work, you need to sign up [Language Understanding Intelligent Service (LUIS)](<https://www.microsoft.com/cognitive-services/en-us/sign-up>) and set the key values in luisAppID and luisSubscriptionID from `Samples/SpeechRecognitionServerExample/settings.plist`.
 3. To Start recognition, press the Start button.
 
 <img src="SampleScreenshots/SampleRunning1.png" width="50%"/>
