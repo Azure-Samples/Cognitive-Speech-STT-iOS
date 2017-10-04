@@ -1,6 +1,6 @@
-# Microsoft Speech API: iOS Speech-to-Text Client Library and Sample
+# Microsoft Speech API: iOS Speech-to-Text Client Library and Samples
 
-This repo contains iOS samples for using Speech-to-Text in the Microsoft Speech API, an offering within [Microsoft Cognitive Services on Azure](https://azure.microsoft.com/en-us/services/cognitive-services/), formerly known as Project Oxford.
+This repo contains the iOS client library and samples for Speech-to-Text in Microsoft Speech API, an offering within [Microsoft Cognitive Services on Azure](https://azure.microsoft.com/en-us/services/cognitive-services/), formerly known as Project Oxford.
 
 * [Learn about the Speech API](https://azure.microsoft.com/en-us/services/cognitive-services/speech/)
 * [Read the documentation](https://docs.microsoft.com/en-us/azure/cognitive-services/speech/home)
@@ -8,13 +8,11 @@ This repo contains iOS samples for using Speech-to-Text in the Microsoft Speech 
 
 ## The Client Library
 
-The client library provides high-level functions to use Microsoft Speech API.
-
-To add the client library dependency to an existing XCode Project:
+To add the Speech Client Library dependency to an existing XCode Project:
 
 1. Select your target application, and open the menu `File` then `Add Files to ...`
 2. Navigate to `iPhoneOS`, select `SpeechSDK.framework`, and click `Add`.
-3. Go to your project settings, by single clicking your project, and navigate to the `General` tab.  You notice that SpeechSDK.framework exists under the `Linked Frameworks and Libraries` section.
+3. Go to your project settings, by single clicking your project, and navigate to the `General` tab.  You will notice that SpeechSDK.framework exists under the `Linked Frameworks and Libraries` section.
 4. In the `General` tab, under the `Embedded Binaries` section, click the (+) button.   In the dialog, select `SpeechSDK.framework` and click the `Add` button.
 5. If you wish to run on the iOS Simulator or MacOSX, repeat steps 2-4 but choose either `iPhoneSimulator` or `MacOSX` instead.
 
@@ -33,7 +31,7 @@ This sample demonstrates the following features using a wav file or external mic
 1. First, you must obtain a Speech API subscription key by following the instructions on [Subscriptions](https://azure.microsoft.com/en-us/try/cognitive-services/).
 2. Start XCode and choose the menu `File`, and `Open...` the workspace file `Cognitive-Speech-STT-iOS > SpeechSDK.xcworkspace`.
 3. Use one of your subscription keys as the primaryKey in `Samples/SpeechRecognitionServerExample/settings.plist`.
-4. If you want to use *Recognition with intent*, you also need to sign up [Language Understanding Intelligent Service (LUIS)](https://azure.microsoft.com/en-us/services/cognitive-services/language-understanding-intelligent-service/) and set the key values in `luisAppID` and `luisSubscriptionID` from `Samples/SpeechRecognitionServerExample/settings.plist`.
+4. If you want to use *Recognition with intent*, you also need to sign up for [Language Understanding Intelligent Service (LUIS)](https://azure.microsoft.com/en-us/services/cognitive-services/language-understanding-intelligent-service/) and set the key values in `luisAppID` and `luisSubscriptionID` in `Samples/SpeechRecognitionServerExample/settings.plist`.
 5. In XCode, select menu `Product > Build` to build the sample and `Run` to launch the sample app.
 
 ### Running the sample
