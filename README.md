@@ -1,3 +1,12 @@
+# September 2018: New Microsoft Cognitive Services Speech SDK available
+
+We released a new Speech SDK supporting the new [Unified Speech Service](https://azure.microsoft.com/services/cognitive-services/speech-services). The new Speech SDK comes with support for Windows, Android, Linux, Javascript and iOS.
+
+Please check out [Microsoft Cognitive Services Speech SDK](https://aka.ms/csspeech) for documentation, links to the download pages, and the samples.
+
+
+>NOTE: The content of this repository is supporting the [Bing Speech Service](https://docs.microsoft.com/en-us/azure/cognitive-services/Speech/Home), not the new [Unified Speech Service](https://azure.microsoft.com/services/cognitive-services/speech-services).
+
 # Microsoft Speech API: iOS Speech-to-Text Client Library and Samples
 
 This repo contains the iOS client library and samples for Speech-to-Text in Microsoft Speech API, an offering within [Microsoft Cognitive Services on Azure](https://azure.microsoft.com/en-us/services/cognitive-services/), formerly known as Project Oxford.
