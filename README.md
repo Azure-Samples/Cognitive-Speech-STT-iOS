@@ -1,3 +1,13 @@
+---
+page_type: sample
+languages:
+- objc
+products:
+- azure
+- azure-cognitive-services
+description: "iOS client library and samples for Speech-to-Text in Microsoft Speech API."
+---
+
 # September 2018: New Microsoft Cognitive Services Speech SDK available
 
 We released a new Speech SDK supporting the new [Speech Service](https://azure.microsoft.com/services/cognitive-services/speech-services). The new Speech SDK comes with support for Windows, Android, Linux, Javascript and iOS.
